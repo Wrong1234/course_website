@@ -1,0 +1,62 @@
+/* Additional custom styles */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.module-card {
+    transition: all 0.3s ease;
+}
+
+.module-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.content-item {
+    transition: all 0.2s ease;
+}
+
+.content-item:hover {
+    border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .module-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .content-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .nested-structure {
+        margin-left: 10px;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

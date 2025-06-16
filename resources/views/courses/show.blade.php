@@ -7,9 +7,9 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1>{{ $course->title }}</h1>
                 <div>
-                    <a href="{{ route('courses.edit', $course) }}" class="btn btn-warning">
+                    {{-- <a href="{{ route('courses.edit', $course) }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i> Edit Course
-                    </a>
+                    </a> --}}
                     <a href="{{ route('courses.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back to Courses
                     </a>

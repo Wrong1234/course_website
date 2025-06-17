@@ -10,7 +10,9 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('module_id')->constrained()->onDelete('cascade');
+            $table->foreignId('module_id')->constrained()
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->string('title');
             $table->enum('type', ['text', 'video', 'image', 'link', 'file', 'assignment', 'quiz'])->default('text');
             $table->text('description')->nullable();

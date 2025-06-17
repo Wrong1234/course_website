@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Module;
-use App\Models\Content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +12,8 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::withCount('modules')->latest()->get();
-        return view('courses.index', compact('courses'));
+        return view('courses.index', ['courses' => $courses,]);
+
     }
 
     public function create()

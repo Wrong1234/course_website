@@ -49,9 +49,9 @@
                                     <a href="{{ route('courses.show', $course) }}" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    {{-- <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-outline-secondary">
+                                    <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-outline-secondary">
                                         <i class="fas fa-edit"></i>
-                                    </a> --}}
+                                    </a>
                                 </div>
                             </div>
                         </div>

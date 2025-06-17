@@ -22,9 +22,9 @@
                 </div>
             @endif
 
-            <form id="courseForm" action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="courseForm" action="{{ route('courses.edit', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
+
                 <!-- Course Information Section -->
                 <div class="course-section">
                     <h3 class="mb-4"><i class="fas fa-book"></i> Course Information</h3>
@@ -38,7 +38,7 @@
                                        id="title" 
                                        name="title" 
                                        value="{{ old('title') }}" 
-                                       placeholder="{{}}"
+                                        placeholder="{{ $course->title }}"
                                        required>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -52,7 +52,7 @@
                                 <select class="form-select @error('category') is-invalid @enderror" 
                                         id="category" 
                                         name="category" 
-                                        placeholder="old('category') ?: 'Select Category'"
+                                        placeholder="{{ $course->category }}"
                                         required>
                                     <option value="">Select Category</option>
                                     <option value="programming" {{ old('category') == 'programming' ? 'selected' : '' }}>Programming</option>
@@ -74,6 +74,7 @@
                                   id="description" 
                                   name="description" 
                                   rows="4" 
+                                  placeholder="{{ $course->description }}"
                                   required>{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -88,6 +89,7 @@
                                        class="form-control @error('duration') is-invalid @enderror" 
                                        id="duration" 
                                        name="duration" 
+                                        placeholder="{{ $course->duration }}"
                                        value="{{ old('duration') }}" 
                                        min="1">
                                 @error('duration')
@@ -105,6 +107,7 @@
                                        name="price" 
                                        value="{{ old('price') }}" 
                                        step="0.01" 
+                                        placeholder="{{ $course->price }}"
                                        min="0">
                                 @error('price')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -131,7 +134,7 @@
                 <!-- Submit Button -->
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-save"></i> Create Course
+                        <i class="fas fa-save"></i> Update Course
                     </button>
                 </div>
             </form>

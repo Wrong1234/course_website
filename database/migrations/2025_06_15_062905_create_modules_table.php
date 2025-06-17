@@ -10,7 +10,9 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('order')->default(1);

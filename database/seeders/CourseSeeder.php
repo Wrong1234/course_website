@@ -15,12 +15,6 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Schema::disableForeignKeyConstraints();
-        // Content::truncate();
-        // Module::truncate();
-        // Course::truncate();
-        // Schema::enableForeignKeyConstraints();
-        // Create sample course
         $course = Course::create([
             'title' => 'Complete Web Development Bootcamp',
             'description' => 'Learn web development from scratch including HTML, CSS, JavaScript, PHP, Laravel and more. Build real-world projects and become a full-stack developer.',

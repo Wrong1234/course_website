@@ -38,7 +38,6 @@
                                        id="title" 
                                        name="title" 
                                        value="{{ old('title') }}" 
-                                       placeholder="{{}}"
                                        required>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>

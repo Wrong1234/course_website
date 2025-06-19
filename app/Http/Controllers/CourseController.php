@@ -11,8 +11,8 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::withCount('modules')->latest()->get();
-        return view('courses.index', ['courses' => $courses,]);
+        $courses = Course::withCount('modules')->latest()->paginate(3);
+        return view('courses.index', ['courses' => $courses]);
 
     }
 

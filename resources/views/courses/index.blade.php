@@ -68,6 +68,12 @@
                         </div>
                     </div>
                 @endforelse
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        {{ $courses->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

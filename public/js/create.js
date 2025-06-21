@@ -126,9 +126,7 @@ $(document).ready(function() {
                               rows="3"></textarea>
                 </div>
                 
-                <div class="content-specific-fields">
-                    <!-- Dynamic fields based on content type will appear here -->
-                </div>
+               
                 
                 <div class="row">
                     <div class="col-md-6">

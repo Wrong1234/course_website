@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Services\OtpService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(OtpService::class, function ($app) {
+            return new OtpService();
+        });
     }
 
     /**

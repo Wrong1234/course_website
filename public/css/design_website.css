@@ -1,5 +1,6 @@
   body{
-        background: linear-gradient(to right, #5558c2, #1BFFFF, #5558c2);
+        /* background: linear-gradient(to right, #5558c2, #1BFFFF, #5558c2); */
+        background-color: #e1e4eb;
     }
     .kg-header {
         background: linear-gradient(to right, #c0e6e6, #8587ad, #c0e6e6) !important;

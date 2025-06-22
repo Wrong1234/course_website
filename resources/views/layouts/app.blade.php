@@ -21,17 +21,23 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon color-dark"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                @auth
+                  <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-link text-dark"> {{ auth()->user()->name }}</li>
+                  </ul>  
+               @else
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Login</a>
+                        <a class="nav-link text-dark" href="{{route('login')}}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark ms-2 px-3" href="#">Signup</a>
+                        <a class="nav-link text-dark ms-2 px-3" href="{{route('signup')}}">Signup</a>
                     </li>
                 </ul>
+                 @endauth
             </div>
         </div>
     </nav>

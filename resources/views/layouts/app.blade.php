@@ -11,6 +11,7 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/design_website.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form_desgin.css') }}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary kg-header">
@@ -27,6 +28,12 @@
                 @auth
                   <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-link text-dark"> {{ auth()->user()->name }}</li>
+                    <li class="nav-item">
+                     <form action="{{ route('logout') }}"     method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="nav-link text-dark">Logout</button>
+                      </form>
+                    </li>
                   </ul>  
                @else
                 <ul class="navbar-nav mb-2 mb-lg-0">

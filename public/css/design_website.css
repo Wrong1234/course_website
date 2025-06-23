@@ -1,6 +1,6 @@
   body{
         /* background: linear-gradient(to right, #5558c2, #1BFFFF, #5558c2); */
-        background-color: #e1e4eb;
+       background-color: #212121;
     }
     .kg-header {
         background: linear-gradient(to right, #c0e6e6, #8587ad, #c0e6e6) !important;
@@ -86,3 +86,41 @@
         border-color: #f5c6cb;
         color: #721c24;
     }
+
+.index-card-desgin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 350px;
+  min-height: 300px;
+  padding: 20px 1px;
+  margin: 10px 0;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(33,150,243,.4),0 4px 6px -4px rgba(33,150,243,.4);
+  border-radius: 10px;
+  background-color: #6B6ECC;
+  background: linear-gradient(45deg, #04051dea 0%, #2b566e 100%);
+  color: white;
+}
+
+.button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: none;
+  outline: none;
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgb(33 150 243);
+  border-radius: 0.5rem;
+  width: 90%;
+  text-shadow: 0px 4px 18px #2c3442;
+  margin: inline;
+  text-decoration: none;
+}

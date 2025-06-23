@@ -26,16 +26,16 @@ class AuthController extends Controller
         return view('auth.signup');
     }
 
-    public function dashboard()
-    {
-        // Ensure the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Please login first.');
-        }
+    // public function dashboard()
+    // {
+    //     // Ensure the user is authenticated
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login')->with('error', 'Please login first.');
+    //     }
 
-        // Return the dashboard view
-        return view('auth.dashboard');
-    }
+    //     // Return the dashboard view
+    //     return view('auth.dashboard');
+    // }
 
     public function signup(Request $request)
     {
@@ -189,7 +189,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
              $request->session()->regenerate();
             // dd('Login successful, redirecting...', Auth::user());
-            return redirect()->route('dashboard') // Adjust this route as needed
+            return redirect()->route('index') // Adjust this route as needed
                              ->with('success', 'Login successful!');
         }
 

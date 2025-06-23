@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return redirect()->route('courses.index');
-});
+})->name('index');
 
 Route::resource('courses', CourseController::class);
 
@@ -17,7 +17,7 @@ Route::post('/courses/{course}/duplicate', [CourseController::class, 'duplicate'
 
 
 // Authentication routes
-Route::get('/', [AuthController::class, 'dashboard'])->name('dashboard');
+//  Route::get('/', [AuthController::class, 'dashboard'])->name('dashboard');
 Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::get('/verify-otp', [AuthController::class, 'showOtpForm'])->name('otp.verify.form');

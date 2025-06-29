@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'whatsapp' => [
+        'admin_number' => env('WHATSAPP_ADMIN_NUMBER', '01797515386'),
+        'default_message' => env('WHATSAPP_DEFAULT_MESSAGE', 'Hello! I need assistance.'),
+        'enabled' => env('WHATSAPP_ENABLED', true),
+    ],
 
 ];

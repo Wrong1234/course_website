@@ -11,12 +11,12 @@
                 </a>
             </div>
 
-            @if(session('success'))
+            {{-- @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="fas fa-check-circle"></i> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            @endif
+            @endif --}}
 
             <div class="row">
                 @forelse($courses as $course)
@@ -80,5 +80,26 @@
             </div>
         </div>
     </div>
+    <a href="{{ getWhatsAppUrl('Need help?') }}"
+    target="_blank"
+    class="whatsapp-floating-button">
+    💬 Chat on WhatsApp
+    </a>
+
+    <style>
+    .whatsapp-floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-decoration: none;
+        z-index: 9999;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+</style>
 </div>
 @endsection

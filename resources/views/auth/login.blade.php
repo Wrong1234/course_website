@@ -9,7 +9,7 @@
                     <h4 class="mt-3 text-white">Login</h4>
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
@@ -29,7 +29,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

@@ -4,12 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Login</h4>
+            <div class="kg-style">
+                <div>
+                    <h4 class="mt-3 text-white">Login</h4>
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
@@ -29,18 +29,18 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                        <div class="form-feild mt-5">
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required autocomplete="off" class="input">
+                             <label for="email" class="user-label">Email</label>
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="form-feild mt-3">
+                            <input type="password" id="password" name="password" required autocomplete="off" class="input">
+                             <label for="password" class="user-label">Password</label>
                         </div>
                         
                         <div class="d-grid">
@@ -49,7 +49,7 @@
                     </form>
                     
                     <div class="text-center mt-3">
-                        <p>Don't have an account? <a href="{{ route('signup') }}">Sign up here</a></p>
+                        <p class="text-white">Don't have an account? <a href="{{ route('signup') }}">Sign up here</a></p>
                     </div>
                 </div>
             </div>

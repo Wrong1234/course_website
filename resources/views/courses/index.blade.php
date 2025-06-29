@@ -5,26 +5,26 @@
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1><i class="fas fa-list"></i> All Courses</h1>
+                <h1 class="text-white"><i class="fas fa-list text-white"></i> All Courses</h1>
                 <a href="{{ route('courses.create') }}" class="btn btn-dark">
                     <i class="fas fa-plus"></i> Create New Course
                 </a>
             </div>
 
-            @if(session('success'))
+            {{-- @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="fas fa-check-circle"></i> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            @endif
+            @endif --}}
 
             <div class="row">
                 @forelse($courses as $course)
                     <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="card-body d-flex flex-column">
+                        <div class="h-100 shadow-sm border-0">
+                            <div class="index-card-desgin">
                                 <h5 class="card-title mb-2">{{ $course->title }}</h5>
-                                <p class="card-text text-muted mb-2">{{ Str::limit($course->description, 100) }}</p>
+                                <p class="mb-2">{{ Str::limit($course->description, 100) }}</p>
                                 <p class="mb-1">
                                     <i class="fas fa-tag text-secondary"></i>
                                     <span class="text-capitalize">{{ $course->category }}</span>
@@ -41,20 +41,21 @@
                                         ${{ number_format($course->price, 2) }}
                                     </p>
                                 @endif
-                                <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                    <small class="text-muted">
+                                {{-- <div> --}}
+                                    {{-- <small class="text-muted">
                                         <i class="fas fa-layer-group"></i>
                                         {{ $course->modules_count ?? 0 }} modules
-                                    </small>
+                                    </small> --}}
                                     <div>
-                                        <a href="{{ route('courses.show', $course) }}" class="btn btn-sm btn-outline-primary me-1" title="View">
-                                            <i class="fas fa-eye"></i>
+                                        <a href="{{ route('courses.show', $course) }}" class="button">
+                                            {{-- <i class="fas fa-eye"></i> --}}
+                                            View Course
                                         </a>
-                                        <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                        {{-- <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </a> --}}
                                     </div>
-                                </div>
+                                {{-- </div> --}}
                             </div>
                         </div>
                     </div>
@@ -79,5 +80,26 @@
             </div>
         </div>
     </div>
+    <a href="{{ getWhatsAppUrl('Need help?') }}"
+    target="_blank"
+    class="whatsapp-floating-button">
+    💬 Chat on WhatsApp
+    </a>
+
+    <style>
+    .whatsapp-floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-decoration: none;
+        z-index: 9999;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+</style>
 </div>
 @endsection

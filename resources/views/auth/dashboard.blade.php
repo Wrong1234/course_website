@@ -2,38 +2,104 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-                <div class="card-body">
-                    @if(auth()->check())
-                        <h4>Welcome, {{ auth()->user()->name }}!</h4>
-                        <p>Your email <strong>{{ auth()->user()->email }}</strong> has been verified.</p>
-                        
-                        @if(auth()->user()->email_verified_at)
-                            <p>Email verified at: {{ auth()->user()->email_verified_at->format('F j, Y g:i A') }}</p>
-                        @else
-                            <p>Email not yet verified.</p>
-                        @endif
-                        
-                        <div class="mt-3">
-                            <a href="{{ route('logout') }}" class="btn btn-danger"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-white"><i class="fas fa-list text-white"></i> All Courses</h1>
+                <a href="{{ route('courses.create') }}" class="btn btn-dark">
+                    <i class="fas fa-plus"></i> Create New Course
+                </a>
+            </div>
+
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
+            <div class="row">
+                @forelse($courses as $course)
+                    <div class="col-md-4 mb-4">
+                        <div class="h-100 shadow-sm border-0">
+                            <div class="index-card-desgin">
+                                <h5 class="card-title mb-2">{{ $course->title }}</h5>
+                                <p class="mb-2">{{ Str::limit($course->description, 100) }}</p>
+                                <p class="mb-1">
+                                    <i class="fas fa-tag text-secondary"></i>
+                                    <span class="text-capitalize">{{ $course->category }}</span>
+                                </p>
+                                @if($course->duration)
+                                    <p class="mb-1">
+                                        <i class="fas fa-clock text-secondary"></i>
+                                        {{ $course->duration }} hours
+                                    </p>
+                                @endif
+                                @if($course->price)
+                                    <p class="mb-1">
+                                        <i class="fas fa-dollar-sign text-secondary"></i>
+                                        ${{ number_format($course->price, 2) }}
+                                    </p>
+                                @endif
+                                {{-- <div> --}}
+                                    {{-- <small class="text-muted">
+                                        <i class="fas fa-layer-group"></i>
+                                        {{ $course->modules_count ?? 0 }} modules
+                                    </small> --}}
+                                    <div>
+                                        <a href="{{ route('courses.show', $course) }}" class="button">
+                                            {{-- <i class="fas fa-eye"></i> --}}
+                                            View Course
+                                        </a>
+                                        {{-- <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a> --}}
+                                    </div>
+                                {{-- </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                            <h3 class="text-muted">No courses found</h3>
+                            <p class="text-muted">Start by creating your first course!</p>
+                            <a href="{{ route('courses.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Create Course
                             </a>
                         </div>
-                        
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @else
-                        <p>You are not logged in.</p>
-                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    @endif
+                    </div>
+                @endforelse
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        {{ $courses->links() }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <a href="{{ getWhatsAppUrl('Need help?') }}"
+    target="_blank"
+    class="whatsapp-floating-button">
+    💬 Chat on WhatsApp
+    </a>
+
+    <style>
+    .whatsapp-floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-decoration: none;
+        z-index: 9999;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+</style>
 </div>
 @endsection

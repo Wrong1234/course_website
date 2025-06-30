@@ -21,6 +21,16 @@
                     </ul>
                 </div>
             @endif
+            {{-- @if (isset($errors) && is_object($errors) && $errors->any())
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Please fix the following errors:</h5>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+           @endif --}}
 
             <form id="courseForm" action="{{ route('courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf

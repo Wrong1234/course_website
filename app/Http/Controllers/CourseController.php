@@ -6,6 +6,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ViewErrorBag;
 
 class CourseController extends Controller
 {
@@ -23,85 +24,79 @@ class CourseController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validation rules
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category' => 'required|string|in:programming,design,business,marketing,other',
-            'duration' => 'nullable|integer|min:1',
-            'price' => 'nullable|numeric|min:0',
-            'modules' => 'required|array|min:1',
-            'modules.*.title' => 'required|string|max:255',
-            'modules.*.description' => 'nullable|string',
-            'modules.*.order' => 'nullable|integer|min:1',
-            'modules.*.contents' => 'nullable|array',
-            'modules.*.contents.*.title' => 'required_with:modules.*.contents|string|max:255',
-            'modules.*.contents.*.type' => 'required_with:modules.*.contents|string|in:text,video,image,link,file',
-            'modules.*.contents.*.description' => 'nullable|string',
-            'modules.*.contents.*.duration' => 'nullable|integer|min:1',
-            'modules.*.contents.*.order' => 'nullable|integer|min:1',
+{
+    // Validate the request - this will automatically redirect back with errors if validation fails
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'category' => 'required|string|in:programming,design,business,marketing,other',
+        'duration' => 'nullable|integer|min:1',
+        'price' => 'nullable|numeric|min:0',
+        'modules' => 'required|array|min:1',
+        'modules.*.title' => 'required|string|max:255',
+        'modules.*.description' => 'nullable|string',
+        'modules.*.order' => 'nullable|integer|min:1',
+        'modules.*.contents' => 'nullable|array',
+        'modules.*.contents.*.title' => 'required_with:modules.*.contents|string|max:255',
+        'modules.*.contents.*.type' => 'required_with:modules.*.contents|string|in:text,video,image,link,file',
+        'modules.*.contents.*.description' => 'nullable|string',
+        'modules.*.contents.*.duration' => 'nullable|integer|min:1',
+        'modules.*.contents.*.order' => 'nullable|integer|min:1',
+    ]);
+
+    try {
+        DB::beginTransaction();
+
+        // Create course
+        $course = Course::create([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'category' => $validated['category'],
+            'duration' => $validated['duration'],
+            'price' => $validated['price'],
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        try {
-            DB::beginTransaction();
-
-            // Create course
-            $course = Course::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'category' => $request->category,
-                'duration' => $request->duration,
-                'price' => $request->price,
+        // Create modules and their contents
+        foreach ($validated['modules'] as $moduleData) {
+            $module = $course->modules()->create([
+                'title' => $moduleData['title'],
+                'description' => $moduleData['description'] ?? null,
+                'order' => $moduleData['order'] ?? 1,
             ]);
 
-            // Create modules and their contents
-            foreach ($request->modules as $moduleData) {
-                $module = $course->modules()->create([
-                    'title' => $moduleData['title'],
-                    'description' => $moduleData['description'] ?? null,
-                    'order' => $moduleData['order'] ?? 1,
-                ]);
-
-                // Create contents for this module
-                if (isset($moduleData['contents']) && is_array($moduleData['contents'])) {
-                    foreach ($moduleData['contents'] as $contentData) {
-                        $module->contents()->create([
-                            'title' => $contentData['title'],
-                            'type' => $contentData['type'],
-                            'description' => $contentData['description'] ?? null,
-                            'content' => $contentData['content'] ?? null,
-                            'url' => $contentData['url'] ?? null,
-                            'file_path' => $contentData['file_path'] ?? null,
-                            'file_size' => $contentData['file_size'] ?? null,
-                            'alt_text' => $contentData['alt_text'] ?? null,
-                            'external' => isset($contentData['external']) ? 1 : 0,
-                            'duration' => $contentData['duration'] ?? null,
-                            'order' => $contentData['order'] ?? 1,
-                        ]);
-                    }
+            // Create contents for this module
+            if (isset($moduleData['contents']) && is_array($moduleData['contents'])) {
+                foreach ($moduleData['contents'] as $contentData) {
+                    $module->contents()->create([
+                        'title' => $contentData['title'],
+                        'type' => $contentData['type'],
+                        'description' => $contentData['description'] ?? null,
+                        'content' => $contentData['content'] ?? null,
+                        'url' => $contentData['url'] ?? null,
+                        'file_path' => $contentData['file_path'] ?? null,
+                        'file_size' => $contentData['file_size'] ?? null,
+                        'alt_text' => $contentData['alt_text'] ?? null,
+                        'external' => isset($contentData['external']) ? 1 : 0,
+                        'duration' => $contentData['duration'] ?? null,
+                        'order' => $contentData['order'] ?? 1,
+                    ]);
                 }
             }
-
-            DB::commit();
-
-            return redirect()->route('courses.index')
-                ->with('success', 'Course created successfully!');
-
-        } catch (\Exception $e) {
-            DB::rollback();
-            
-            return redirect()->back()
-                ->with('error', 'An error occurred while creating the course. Please try again.')
-                ->withInput();
         }
+
+        DB::commit();
+
+        return redirect()->route('courses.index')
+            ->with('success', 'Course created successfully!');
+
+    } catch (\Exception $e) {
+        DB::rollback();
+        
+        return redirect()->back()
+            ->with('error', 'An error occurred while creating the course. Please try again.')
+            ->withInput();
     }
+}
 
     public function show(Course $course)
     {

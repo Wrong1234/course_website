@@ -13,17 +13,18 @@ class HomeController extends Controller
         try {
             // Get courses with module count
             $courses = Course::withCount('modules')->latest()->paginate(3);
+            // dd($courses);
             
             // Return view with WhatsApp integration
-            return $this->viewWithWhatsApp('courses.index', [
+            return $this->viewWithWhatsApp('auth.dashboard', [
                 'courses' => $courses
             ], 'Hello! Welcome to our website!');
             
         } catch (\Exception $e) {
             // Fallback without WhatsApp integration
             $courses = Course::withCount('modules')->latest()->paginate(3);
-            
-            return view('courses.index', [
+
+            return view('auth.dashboard', [
                 'courses' => $courses,
                 'whatsAppUrl' => null,
                 'isAvailable' => false,

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,17 +12,54 @@
                 </a>
             </div>
 
-            @if ($errors->any())
+            {{-- Robust error handling --}}
+            @php
+                $hasErrors = false;
+                $errorMessages = [];
+                
+                // Check if $errors is a ViewErrorBag object
+                if (isset($errors) && is_object($errors) && method_exists($errors, 'any') && $errors->any()) {
+                    $hasErrors = true;
+                    $errorMessages = $errors->all();
+                }
+                // Check if $errors is an array with content
+                elseif (isset($errors) && is_array($errors) && count($errors) > 0) {
+                    $hasErrors = true;
+                    // Flatten array errors
+                    foreach ($errors as $key => $value) {
+                        if (is_array($value)) {
+                            $errorMessages = array_merge($errorMessages, $value);
+                        } else {
+                            $errorMessages[] = $value;
+                        }
+                    }
+                }
+                // Check session for errors
+                elseif (session()->has('errors')) {
+                    $sessionErrors = session('errors');
+                    if (is_object($sessionErrors) && method_exists($sessionErrors, 'any') && $sessionErrors->any()) {
+                        $hasErrors = true;
+                        $errorMessages = $sessionErrors->all();
+                    } elseif (is_array($sessionErrors)) {
+                        $hasErrors = true;
+                        $errorMessages = $sessionErrors;
+                    }
+                }
+            @endphp
+
+            @if($hasErrors && count($errorMessages) > 0)
                 <div class="alert alert-danger">
                     <h5><i class="fas fa-exclamation-triangle"></i> Please fix the following errors:</h5>
                     <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
+                        @foreach($errorMessages as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
-
+             {{-- <pre>
+                 {{ dd($errors) }}
+            </pre> --}}
             <form id="courseForm" action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
@@ -51,7 +89,6 @@
                                 <select class="form-select @error('category') is-invalid @enderror" 
                                         id="category" 
                                         name="category" 
-                                        placeholder="old('category') ?: 'Select Category'"
                                         required>
                                     <option value="">Select Category</option>
                                     <option value="programming" {{ old('category') == 'programming' ? 'selected' : '' }}>Programming</option>

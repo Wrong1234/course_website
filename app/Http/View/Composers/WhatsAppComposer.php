@@ -23,7 +23,7 @@ class WhatsAppComposer
         'buttonText' => $data['buttonText'] ?? 'Chat on WhatsApp',
         'buttonClass' => $data['buttonClass'] ?? 'btn btn-success',
         'isAvailable' => $data['isAvailable'] ?? false,
-        'errors' => $data['errors'] ?? [],
+        'whatsAppErrors' => $data['errors'] ?? [],
     ]);
   }
 }

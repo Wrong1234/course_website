@@ -24,7 +24,7 @@ class CourseController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
     // Validate the request - this will automatically redirect back with errors if validation fails
     $validated = $request->validate([
         'title' => 'required|string|max:255',

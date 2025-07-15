@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 use App\Models\user_otp;
 use Illuminate\Support\Facades\Mail;
@@ -46,9 +45,9 @@ class OtpService
             ->where('is_used', false)
             ->first();
 
-        if (!$userOtp && $userOtp->isExpired()) {
-         
-            return false; 
+        if (!$userOtp || $userOtp->isExpired()) {
+
+            return false;
 
         }
 

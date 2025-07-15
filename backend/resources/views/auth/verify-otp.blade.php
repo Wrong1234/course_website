@@ -1,4 +1,3 @@
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +24,13 @@
     <div class="container">
         <h2 class="text-center">Verify Your Email</h2>
         
-        @if(session('success'))
+        {{-- @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         @if(session('error'))
             <div class="alert alert-error">{{ session('error') }}</div>
-        @endif
+        @endif --}}
 
         <div class="info-box">
             <strong>Check your email!</strong><br>
